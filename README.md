@@ -1,5 +1,7 @@
 # YouTube New Video Scraper Bot
 
+* **Power Automate Desktop:** This tool is pre-installed on Windows 11 and is a free download for Windows 10. It can be used for free with any personal Microsoft account (like Outlook.com) or a work/school (Microsoft 365) account.
+
 A Power Automate Desktop bot that scans a list of YouTube channels (from an Excel file) and creates a text file listing all videos posted within the last 24 hours.
 
 This project is an advanced example of RPA, combining web scraping, data-driven loops, conditional logic, and file I/O.
