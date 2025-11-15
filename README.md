@@ -23,6 +23,7 @@ To run this bot, you will need:
 * Power Automate Desktop
 * Microsoft Excel
 * A compatible web browser (Edge/Chrome) with the Power Automate extension installed.
+* A txt file to save output
 
 ---
 
@@ -56,7 +57,10 @@ You **must** edit the following actions:
 * **Write text to file** (Action #16, inside the loop)
     * Update the `File path` to be the **exact same path** from the previous step.
 
-
+* **The path you can paste directly in code**
+    * Path 1 - Excel path - Line 1
+    * Path 2 - txt file path - Line 5,11,15,18
+  
 
 ### 4. Run the Bot
 
