@@ -1,21 +1,21 @@
-Excel.LaunchExcel.LaunchAndOpenUnderExistingProcess Path: $'''C:\\Users\\ASUS\\Downloads\\yt.xlsx''' Visible: True ReadOnly: False UseMachineLocale: False Instance=> ExcelInstance
+Excel.LaunchExcel.LaunchAndOpenUnderExistingProcess Path: $'''Path1''' Visible: True ReadOnly: False UseMachineLocale: False Instance=> ExcelInstance
 Excel.ReadFromExcel.ReadAllCells Instance: ExcelInstance GetCellContentsMode: Excel.GetCellContentsMode.TypedValues FirstLineIsHeader: True RangeValue=> ExcelData
 Excel.CloseExcel.Close Instance: ExcelInstance
 DateTime.GetCurrentDateTime.Local DateTimeFormat: DateTime.DateTimeFormat.DateAndTime CurrentDateTime=> CurrentDateTime
-File.WriteText File: $'''C:\\Users\\ASUS\\OneDrive\\Documents\\Notes\\yt.txt''' TextToWrite: $'''New found at %CurrentDateTime%''' AppendNewLine: True IfFileExists: File.IfFileExists.Overwrite Encoding: File.FileEncoding.Unicode
+File.WriteText File: $'''Path2''' TextToWrite: $'''New found at %CurrentDateTime%''' AppendNewLine: True IfFileExists: File.IfFileExists.Overwrite Encoding: File.FileEncoding.Unicode
 LOOP FOREACH CurrentItem IN ExcelData
     WebAutomation.LaunchEdge.LaunchEdge Url: CurrentItem['ChannelVideosURL'] WindowState: WebAutomation.BrowserWindowState.Maximized ClearCache: False ClearCookies: False WaitForPageToLoadTimeout: 60 Timeout: 60 PiPUserDataFolderMode: WebAutomation.PiPUserDataFolderModeEnum.AutomaticProfile TargetDesktop: $'''{\"DisplayName\":\"Local computer\",\"Route\":{\"ServerType\":\"Local\",\"ServerAddress\":\"\"},\"DesktopType\":\"local\"}''' BrowserInstance=> Browser
     WAIT (WebAutomation.WaitForWebPageContent.WebPageToContainElement BrowserInstance: Browser Control: appmask['Web Page \'https://www.youtube.com/@mreflow/videos\'']['Div \'21:04 21:04 Now  ...  views 3 months ago\''])
     WebAutomation.ExtractData.ExtractTable BrowserInstance: Browser Control: $'''html > body > ytd-app > div:eq(0) > ytd-page-manager > ytd-browse > ytd-two-column-browse-results-renderer > div:eq(0) > ytd-rich-grid-renderer > div:eq(4) > ytd-rich-item-renderer''' ExtractionParameters: {[$'''div > ytd-rich-grid-media > div:eq(0) > div:eq(2) > div:eq(1) > h3 > a > yt-formatted-string''', $'''Own Text''', $'''''', $'''Title'''], [$'''div > ytd-rich-grid-media > div:eq(0) > div:eq(2) > div:eq(1) > ytd-video-meta-block > div:eq(0) > div:eq(1) > span:eq(1)''', $'''Own Text''', $'''''', $'''UploadTime'''], [$'''div > ytd-rich-grid-media > div:eq(0) > div:eq(2) > div:eq(1) > h3 > a > yt-formatted-string''', $'''Href''', $'''''', $'''Link'''] } PostProcessData: False TimeoutInSeconds: 60 ExtractedData=> DataFromWebPage
     WebAutomation.CloseWebBrowser BrowserInstance: Browser
-    File.WriteText File: $'''C:\\Users\\ASUS\\OneDrive\\Documents\\Notes\\yt.txt''' TextToWrite: $'''%CurrentItem['Title']%
+    File.WriteText File: $'''Path2''' TextToWrite: $'''%CurrentItem['Title']%
 :''' AppendNewLine: True IfFileExists: File.IfFileExists.Append Encoding: File.FileEncoding.Unicode
     LOOP FOREACH CurrentItem2 IN DataFromWebPage
         IF Contains(CurrentItem2['UploadTime'], $'''hours''', False) THEN
-            File.WriteText File: $'''C:\\Users\\ASUS\\OneDrive\\Documents\\Notes\\yt.txt''' TextToWrite: $'''Found: %CurrentItem2['Title']%''' AppendNewLine: True IfFileExists: File.IfFileExists.Append Encoding: File.FileEncoding.Unicode
+            File.WriteText File: $'''Path2''' TextToWrite: $'''Found: %CurrentItem2['Title']%''' AppendNewLine: True IfFileExists: File.IfFileExists.Append Encoding: File.FileEncoding.Unicode
         END
         IF Contains(CurrentItem2['UploadTime'], $'''minutes''', False) THEN
-            File.WriteText File: $'''C:\\Users\\ASUS\\OneDrive\\Documents\\Notes\\yt.txt''' TextToWrite: $'''Found: %CurrentItem2['Title']%''' AppendNewLine: True IfFileExists: File.IfFileExists.Append Encoding: File.FileEncoding.Unicode
+            File.WriteText File: $'''Path2''' TextToWrite: $'''Found: %CurrentItem2['Title']%''' AppendNewLine: True IfFileExists: File.IfFileExists.Append Encoding: File.FileEncoding.Unicode
         END
     END
 END
@@ -43,3 +43,4 @@ END
   },
   "ConnectionReferences": []
 }
+
